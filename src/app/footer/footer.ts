@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 interface FooterList {
   id: number;
@@ -10,7 +10,9 @@ interface FooterList {
   imports: [RouterLink],
   template: `
     <div class="border-t">
-      <div class="flex justify-between items-center pt-6 pb-10">
+      <div
+        class="flex flex-col gap-4 md:flex-row md:justify-between md:gap-0 md:items-center pt-6 pb-10"
+      >
         <div class="flex text-xs">
           @for (item of leftSide; track item.id) {
             @if (item.id === 1) {

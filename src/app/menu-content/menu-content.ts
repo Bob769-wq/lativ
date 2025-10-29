@@ -5,105 +5,62 @@ interface SideList {
   title: string;
   link: string;
   children?: SideList[];
+  isExpanded?: boolean;
 }
 @Component({
-  selector: 'app-sidenav',
+  selector: 'app-menu-content',
   imports: [RouterLink],
   template: `
-    <ul class="border-b">
-      @for (item of sideItemUpper; track item.id) {
-        <li class="font-bold text-side-title flex items-center gap-2">
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg" height="5" width="5" viewBox="0 0 640 640">
-              <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-              <path
-                fill="#253756"
-                d="M160 96L480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96z"
-              />
-            </svg>
-          </span>
-          <a [routerLink]="item.link" class="hover:underline">
+    <div
+      class="fixed top-mobile-header bottom-mobile-nav left-0 right-0 transition-transform duration-500 ease-in-out z-50 overflow-y-auto md:hidden bg-white"
+      [class]="isMenuOpen() ? 'translate-x-0' : '-translate-x-full'"
+    >
+      <ul class="p-6">
+        @for (item of sideItem; track item.id) {
+          <li class="text-xl cursor-pointer " (click)="toggleExpanded(item)">
             {{ item.title }}
-          </a>
-        </li>
-        <ul class="py-4 flex flex-col gap-2.5">
-          @for (child of item.children; track child.id) {
-            <li
-              class="flex items-center gap-2 text-side-upper-item hover:text-side-upper-hover text-xs"
-            >
-              <span>
-                <svg xmlns="http://www.w3.org/2000/svg" height="8" width="8" viewBox="0 0 640 640">
-                  <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                  <path
-                    fill="#83521e"
-                    d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"
-                  />
-                </svg>
-              </span>
-              <a [routerLink]="child.link">{{ child.title }}</a>
-            </li>
+          </li>
+          @if (item.isExpanded) {
+            <ul class="flex flex-col gap-1 py-2">
+              @for (child of item.children; track child.id) {
+                <li class="hover:text-side-upper-hover">
+                  <a [routerLink]="child.link">{{ child.title }}</a>
+                </li>
+              }
+            </ul>
           }
-        </ul>
-      }
-    </ul>
-    <ul class="flex flex-col">
-      @for (item of sideItem; track item.id) {
-        <li class="pt-5 flex gap-2 items-center font-bold text-side-title">
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg" height="5" width="5" viewBox="0 0 640 640">
-              <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-              <path
-                fill="#253756"
-                d="M160 96L480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96z"
-              />
-            </svg>
-          </span>
-          <span>{{ item.title }}</span>
-        </li>
-        <ul class="py-2 flex flex-col gap-2.5">
-          @for (child of item.children; track child.id) {
-            <li
-              class="flex items-center gap-2 text-xs text-side-title hover:text-side-upper-hover hover:underline cursor-pointer"
-            >
-              <span>
-                <svg xmlns="http://www.w3.org/2000/svg" height="8" width="8" viewBox="0 0 640 640">
-                  <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                  <path
-                    fill="#4d494a"
-                    d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"
-                  />
-                </svg>
-              </span>
-              <a [routerLink]="child.link">{{ child.title }}</a>
-            </li>
-          }
-        </ul>
-      }
-    </ul>
+        }
+      </ul>
+    </div>
+    <div class="fixed bottom-0 left-0 right-0 px-4 md:hidden">
+      <div class="flex justify-between py-3 border-t bg-white">
+        <a routerLink="/"><i class="fa-solid fa-home fa-xl"></i></a>
+        <span (click)="toggleMenu()" class="cursor-pointer"
+          ><i class="fa-solid fa-bars fa-xl"></i
+        ></span>
+        <a routerLink="/cart"><i class="fa-solid fa-shopping-cart fa-xl"></i></a>
+        <a routerLink="/user"><i class="fa-solid fa-user fa-xl"></i></a>
+      </div>
+    </div>
   `,
   styles: ``,
 })
-export class Sidenav {
-  sideItemUpper: SideList[] = [
-    {
-      id: 1,
-      title: '女裝新品＆熱銷',
-      link: '/side',
-      children: [
-        { id: 1, title: '限時特惠．2件580元', link: '/child' },
-        { id: 2, title: '溫差推薦．任選450起', link: '/child' },
-        { id: 3, title: '秋上新．任選220起', link: '/child' },
-        { id: 4, title: '舒適體驗．2件75折起', link: '/child' },
-        { id: 5, title: '換季下殺．任選９９起', link: '/child' },
-      ],
-    },
-  ];
-
+export class MenuContent {
+  isMenuOpen = signal(false);
+  toggleMenu() {
+    this.isMenuOpen.update((value) => !value);
+  }
+  toggleExpanded(item: SideList) {
+    if (item.children) {
+      item.isExpanded = !item.isExpanded;
+    }
+  }
   sideItem: SideList[] = [
     {
       id: 1,
       title: '聯名授權',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '迪士尼', link: '/child' },
         { id: 2, title: '史努比', link: '/child' },
@@ -134,6 +91,7 @@ export class Sidenav {
       id: 2,
       title: '男女適穿',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '聯名T/中性款', link: '/child' },
         { id: 2, title: '上衣類', link: '/child' },
@@ -146,6 +104,7 @@ export class Sidenav {
       id: 3,
       title: '上衣類',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '聯名短T', link: '/child' },
         { id: 2, title: '聯名長T', link: '/child' },
@@ -173,6 +132,7 @@ export class Sidenav {
       id: 4,
       title: '襯衫類',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '休閒襯衫', link: '/child' },
         { id: 2, title: '牛津襯衫', link: '/child' },
@@ -188,6 +148,7 @@ export class Sidenav {
       id: 5,
       title: '外套類',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '抗UV系列', link: '/child' },
         { id: 2, title: '機能外套', link: '/child' },
@@ -207,6 +168,7 @@ export class Sidenav {
       id: 6,
       title: '下身類',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '九分褲', link: '/child' },
         { id: 2, title: '西裝褲', link: '/child' },
@@ -228,6 +190,7 @@ export class Sidenav {
       id: 7,
       title: '洋裝',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '長袖洋裝', link: '/child' },
         { id: 2, title: '襯衫式洋裝', link: '/child' },
@@ -241,6 +204,7 @@ export class Sidenav {
       id: 8,
       title: '內衣類',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '無鋼圈內衣', link: '/child' },
         { id: 2, title: '內褲系列', link: '/child' },
@@ -255,6 +219,7 @@ export class Sidenav {
       id: 9,
       title: '家居服',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '家居套裝', link: '/child' },
         { id: 2, title: '家居洋裝', link: '/child' },
@@ -266,6 +231,7 @@ export class Sidenav {
       id: 10,
       title: '配件',
       link: '/side',
+      isExpanded: false,
       children: [
         { id: 1, title: '襪子', link: '/child' },
         { id: 2, title: '圍巾', link: '/child' },

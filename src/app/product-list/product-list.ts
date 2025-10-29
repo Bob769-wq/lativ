@@ -19,7 +19,7 @@ interface Color {
   selector: 'app-product-list',
   imports: [RouterLink, ProductContent],
   template: `
-    <div class="grid grid-cols-4 gap-10 py-10">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 py-10">
       @for (item of productItem; track item.id) {
         <app-product-content [product]="item" />
       }

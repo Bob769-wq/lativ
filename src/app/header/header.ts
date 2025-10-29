@@ -10,9 +10,9 @@ interface NavList {
   selector: 'app-header',
   imports: [RouterLink, ReactiveFormsModule],
   template: `
-    <header class="">
-      <div class="flex flex-col gap-2 pt-5">
-        <div class="flex justify-end gap-6">
+    <header class="fixed top-0 left-0 right-0 bg-white">
+      <div class="flex flex-col gap-2 pt-5 px-4 xl:px-0 xl:max-w-1180 mx-auto">
+        <div class="hidden lg:flex justify-end gap-6">
           <a routerLink="/fb">
             <i class="fa-brands fa-facebook-f fa-xl" style="color: #999999;"></i>
           </a>
@@ -25,7 +25,7 @@ interface NavList {
         </div>
         <div class="flex py-2 items-baseline">
           <a class="w-44 pl-4"><img src="/lativ_logo.svg" width="80" alt="logo" /></a>
-          <ul class="flex items-center text-base">
+          <ul class="lg:flex items-center text-base hidden">
             @for (item of navItem; track item.id) {
               @if (item.id === 1) {
                 <li class="bg-nav-bg text-hover-nav-text text-center mr-1">
@@ -52,7 +52,9 @@ interface NavList {
                 (click)="toggleSearch()"
               ></div>
               @if (isSearchOpen()) {
-                <div class="absolute rounded-lg z-50 top-5 right-0 w-96 h-96 bg-white">
+                <div
+                  class="absolute rounded-lg z-50 top-5 right-0 w-96 h-96 bg-white md:block hidden"
+                >
                   <div class="p-4 flex flex-col gap-4">
                     <form (submit)="submit()" [formGroup]="form" class="group">
                       <div
@@ -83,6 +85,22 @@ interface NavList {
                     </div>
                   </div>
                 </div>
+                <div class="fixed top-0 right-0 left-0 bg-white z-50 md:hidden">
+                  <form (submit)="submit()" [formGroup]="form" class="group py-5 px-8">
+                    <div
+                      class="rounded-full py-2 px-2 border flex items-center group-focus-within:border-side-upper-hover"
+                    >
+                      <input
+                        type="text"
+                        class="w-full outline-none"
+                        formControlName="searchControl"
+                      />
+                      <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #444444;"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
               }
             </li>
 
@@ -104,6 +122,19 @@ interface NavList {
             </li>
           </ul>
         </div>
+        <ul class="flex justify-between items-center text-base pb-1 md:hidden">
+          @for (item of navItem; track item.id) {
+            @if (item.id === 1) {
+              <li class="bg-nav-bg text-hover-nav-text text-center mr-1">
+                <a [routerLink]="item.link" class="inline-block py-1 ">{{ item.title }}</a>
+              </li>
+            } @else {
+              <li class="mx-1  text-center hover:text-black">
+                <a [routerLink]="item.link" class="inline-block py-1 px-4">{{ item.title }}</a>
+              </li>
+            }
+          }
+        </ul>
       </div>
     </header>
   `,

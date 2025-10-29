@@ -3,8 +3,13 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      screens: {},
       maxWidth: {
         1180: '73.75rem',
+      },
+      spacing: {
+        'mobile-nav': '46px',
+        'mobile-header': '125px',
       },
       colors: {
         'nav-bg': '#efede5',
