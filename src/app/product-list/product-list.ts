@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ProductContent } from '../product-content/product-content';
 interface Product {
   id: number;
   title: string;
@@ -16,29 +17,11 @@ interface Color {
 }
 @Component({
   selector: 'app-product-list',
-  imports: [RouterLink],
+  imports: [RouterLink, ProductContent],
   template: `
     <div class="grid grid-cols-4 gap-10 py-10">
       @for (item of productItem; track item.id) {
-        <div class="flex flex-col">
-          <a [routerLink]="item.link">
-            <img [src]="item.img" [alt]="item.title" />
-          </a>
-          <div class="p-6 text-xs flex flex-col gap-4">
-            <div class="flex justify-center gap-1">
-              @for (color of item.color; track color.id) {
-                <a [routerLink]="color.link"
-                  ><img [src]="color.img" width="16" height="16" [alt]="item.title"
-                /></a>
-              }
-            </div>
-            <h3 class="text-center">{{ item.title }}</h3>
-            <div class="flex justify-center gap-2">
-              <p class="line-through">{{ item.oldPrice }}</p>
-              <p>{{ item.price }}</p>
-            </div>
-          </div>
-        </div>
+        <app-product-content [product]="item" />
       }
     </div>
   `,
