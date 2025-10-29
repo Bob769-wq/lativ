@@ -1,0 +1,533 @@
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+interface Product {
+  id: number;
+  title: string;
+  img: string;
+  link: string;
+  oldPrice?: string;
+  price: string;
+  color: Color[];
+}
+interface Color {
+  id: number;
+  img: string;
+  link: string;
+}
+@Component({
+  selector: 'app-product-list',
+  imports: [RouterLink],
+  template: `
+    <div class="grid grid-cols-4 gap-10 py-10">
+      @for (item of productItem; track item.id) {
+        <div class="flex flex-col">
+          <a [routerLink]="item.link">
+            <img [src]="item.img" [alt]="item.title" />
+          </a>
+          <div class="p-6 text-xs flex flex-col gap-4">
+            <div class="flex justify-center gap-1">
+              @for (color of item.color; track color.id) {
+                <a [routerLink]="color.link"
+                  ><img [src]="color.img" width="16" height="16" [alt]="item.title"
+                /></a>
+              }
+            </div>
+            <h3 class="text-center">{{ item.title }}</h3>
+            <div class="flex justify-center gap-2">
+              <p class="line-through">{{ item.oldPrice }}</p>
+              <p>{{ item.price }}</p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  `,
+  styles: ``,
+})
+export class ProductList {
+  productItem: Product[] = [
+    {
+      id: 1,
+      title: '鋪棉輕薄型外套-女',
+      img: '/products/product1.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 890',
+      price: '活動價 NT$ 850',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 2,
+      title: '純棉粗紡條紋船型領T恤-女',
+      img: '/products/product2.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 399',
+      price: '活動價 NT$ 350',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 3,
+      title: '鋪棉飛行外套-女',
+      img: '/products/product3.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 890',
+      price: '活動價 NT$ 790',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 4,
+      title: '寬版polo領毛衣-女',
+      img: '/products/product4.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 550',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 5,
+      title: '羅紋半開襟長袖T恤-女',
+      img: '/products/product5.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 399',
+      price: '活動價 NT$ 350',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 6,
+      title: '棉質條紋長版襯衫-女',
+      img: '/products/product6.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 550',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 7,
+      title: '水洗寬鬆長版連帽外套-女',
+      img: '/products/product7.jpeg',
+      link: '/product',
+      price: ' NT$ 1,090',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 8,
+      title: '立體剪裁靴型牛仔褲-女',
+      img: '/products/product8.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 690',
+      price: '活動價 NT$ 590',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 9,
+      title: '輕型鋪棉機能立領外套-女',
+      img: '/products/product9.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 1090',
+      price: '活動價 NT$ 990',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 10,
+      title: '柔軟磨毛寬鬆高領上衣-女',
+      img: '/products/product10.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 350',
+      price: '活動價 NT$ 299',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 11,
+      title: '刷毛寬短版印花圓領衫-女',
+      img: '/products/product11.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 490',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 12,
+      title: '毛圈家居套裝-女',
+      img: '/products/product12.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 690',
+      price: '活動價 NT$ 650',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 13,
+      title: '鋪棉輕薄型外套-女',
+      img: '/products/product1.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 890',
+      price: '活動價 NT$ 850',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 14,
+      title: '純棉粗紡條紋船型領T恤-女',
+      img: '/products/product2.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 399',
+      price: '活動價 NT$ 350',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 15,
+      title: '鋪棉飛行外套-女',
+      img: '/products/product3.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 890',
+      price: '活動價 NT$ 790',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 16,
+      title: '寬版polo領毛衣-女',
+      img: '/products/product4.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 550',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 17,
+      title: '羅紋半開襟長袖T恤-女',
+      img: '/products/product5.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 399',
+      price: '活動價 NT$ 350',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 18,
+      title: '棉質條紋長版襯衫-女',
+      img: '/products/product6.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 550',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 19,
+      title: '水洗寬鬆長版連帽外套-女',
+      img: '/products/product7.jpeg',
+      link: '/product',
+      price: ' NT$ 1,090',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 20,
+      title: '立體剪裁靴型牛仔褲-女',
+      img: '/products/product8.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 690',
+      price: '活動價 NT$ 590',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 21,
+      title: '輕型鋪棉機能立領外套-女',
+      img: '/products/product9.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 1090',
+      price: '活動價 NT$ 990',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 22,
+      title: '柔軟磨毛寬鬆高領上衣-女',
+      img: '/products/product10.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 350',
+      price: '活動價 NT$ 299',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 23,
+      title: '刷毛寬短版印花圓領衫-女',
+      img: '/products/product11.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 490',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 24,
+      title: '毛圈家居套裝-女',
+      img: '/products/product12.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 690',
+      price: '活動價 NT$ 650',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 25,
+      title: '鋪棉輕薄型外套-女',
+      img: '/products/product1.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 890',
+      price: '活動價 NT$ 850',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 26,
+      title: '純棉粗紡條紋船型領T恤-女',
+      img: '/products/product2.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 399',
+      price: '活動價 NT$ 350',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 27,
+      title: '鋪棉飛行外套-女',
+      img: '/products/product3.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 890',
+      price: '活動價 NT$ 790',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 28,
+      title: '寬版polo領毛衣-女',
+      img: '/products/product4.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 550',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 29,
+      title: '羅紋半開襟長袖T恤-女',
+      img: '/products/product5.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 399',
+      price: '活動價 NT$ 350',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 30,
+      title: '棉質條紋長版襯衫-女',
+      img: '/products/product6.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 550',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 31,
+      title: '水洗寬鬆長版連帽外套-女',
+      img: '/products/product7.jpeg',
+      link: '/product',
+      price: ' NT$ 1,090',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 32,
+      title: '立體剪裁靴型牛仔褲-女',
+      img: '/products/product8.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 690',
+      price: '活動價 NT$ 590',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 33,
+      title: '輕型鋪棉機能立領外套-女',
+      img: '/products/product9.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 1090',
+      price: '活動價 NT$ 990',
+      color: [
+        { id: 1, img: '/products/color1-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color1-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color1-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 34,
+      title: '柔軟磨毛寬鬆高領上衣-女',
+      img: '/products/product10.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 350',
+      price: '活動價 NT$ 299',
+      color: [
+        { id: 1, img: '/products/color2-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color2-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color2-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color2-4.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 35,
+      title: '刷毛寬短版印花圓領衫-女',
+      img: '/products/product11.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 590',
+      price: '活動價 NT$ 490',
+      color: [
+        { id: 1, img: '/products/color3-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color3-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color3-3.jpeg', link: '/product' },
+      ],
+    },
+    {
+      id: 36,
+      title: '毛圈家居套裝-女',
+      img: '/products/product12.jpeg',
+      link: '/product',
+      oldPrice: 'NT$ 690',
+      price: '活動價 NT$ 650',
+      color: [
+        { id: 1, img: '/products/color4-1.jpeg', link: '/product' },
+        { id: 2, img: '/products/color4-2.jpeg', link: '/product' },
+        { id: 3, img: '/products/color4-3.jpeg', link: '/product' },
+        { id: 4, img: '/products/color4-4.jpeg', link: '/product' },
+      ],
+    },
+  ];
+}
